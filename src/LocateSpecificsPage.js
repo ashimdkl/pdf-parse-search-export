@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { useDropzone } from 'react-dropzone';
 import { getDocument } from 'pdfjs-dist';
@@ -96,6 +96,20 @@ function LocateSpecificsPage() {
       ));
   };
 
+  const renderHighlightedText = () => {
+    const currentPageText = text.split(`Page ${pageNumber}:`)[1]?.split(`Page ${pageNumber + 1}:`)[0];
+    if (!currentPageText) return null;
+
+    const userKeywords = annotations.map(annotation => annotation.keyword);
+    let highlightedText = currentPageText;
+    userKeywords.forEach(keyword => {
+      const regex = new RegExp(`\\b${keyword}\\b`, 'gi');
+      highlightedText = highlightedText.replace(regex, match => `<mark>${match}</mark>`);
+    });
+
+    return <div dangerouslySetInnerHTML={{ __html: highlightedText }} />;
+  };
+
   return (
     <div className="pdf-viewer">
       <div className="home-button">
@@ -110,7 +124,7 @@ function LocateSpecificsPage() {
         </div>
       )}
       {file && (
-        <div>
+        <>
           <div className="pdf-container">
             <Document
               file={file}
@@ -125,13 +139,24 @@ function LocateSpecificsPage() {
               </div>
             </Document>
           </div>
-          <div className="pagination-controls">
-            <button onClick={prevPage} disabled={pageNumber <= 1}>Previous</button>
-            <span>Page {pageNumber} of {numPages}</span>
-            <button onClick={nextPage} disabled={pageNumber >= numPages}>Next</button>
+          <div className="text-container">
+            <h2>Text Extraction</h2>
+            {renderHighlightedText()}
           </div>
+        </>
+      )}
+      {file && (
+        <div className="pagination-controls">
+          <button onClick={prevPage} disabled={pageNumber <= 1}>Previous</button>
+          <span>Page {pageNumber} of {numPages}</span>
+          <button onClick={nextPage} disabled={pageNumber >= numPages}>Next</button>
         </div>
       )}
+      {file && annotations.filter(annotation => annotation.page === pageNumber).map((annotation, index) => (
+        <div key={index} className="keyword-summary">
+          Page {annotation.page} has {annotation.count} occurrences of the keyword "{annotation.keyword}".
+        </div>
+      ))}
     </div>
   );
 }
