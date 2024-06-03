@@ -1,0 +1,78 @@
+/* Import necessary styles for react-pdf */
+@import 'react-pdf/dist/esm/Page/TextLayer.css';
+@import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.pdf-viewer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdf-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  z-index: 2;
+  position: relative;
+}
+
+.pagination-controls button {
+  margin: 0 10px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination-controls button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.pagination-controls span {
+  margin: 0 10px;
+}
+
+.annotation {
+  position: absolute;
+  background-color: yellow;
+  padding: 2px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.annotation:hover {
+  background-color: #ffc107;
+}
+
+.react-pdf__Page__textContent {
+  display: none !important;
+}
+
+.react-pdf__Page__annotations {
+  display: none !important;
+}

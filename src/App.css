@@ -1,0 +1,141 @@
+/* app.css */
+
+/* Add these to your App.css */
+@import 'react-pdf/dist/esm/Page/TextLayer.css';
+@import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
+
+/* basic reset and box-sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* set a nice font and some basic styles for the body */
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* main container styling */
+div {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px; /* increased width to accommodate table */
+  text-align: center;
+}
+
+/* dropzone styling */
+.dropzone {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  background: #fafafa;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.dropzone:hover {
+  background: #eaeaea;
+}
+
+/* header styling */
+h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #666;
+}
+
+/* input field styling */
+input[type="text"] {
+  padding: 10px;
+  width: calc(100% - 22px);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+/* button styling */
+button {
+  padding: 10px 20px;
+  background: #007bff;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 20px; /* add margin-top for better spacing */
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+/* table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+/* highlighting style */
+mark {
+  background-color: yellow;
+  font-weight: bold;
+}
+.help-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.help-button img {
+  width: 40px;
+  height: 40px;
+}
+
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+.ReactModal__Content {
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  margin-right: -50% !important;
+  transform: translate(-50%, -50%) !important;
+  padding: 20px !important;
+  background: #fff !important;
+  border-radius: 10px !important;
+  width: 50% !important;
+  max-width: 600px !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
+}
