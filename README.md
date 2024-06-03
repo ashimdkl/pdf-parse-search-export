@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# PDF Keyword Analyzer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a web application built with [Create React App](https://github.com/facebook/create-react-app) for analyzing PDF documents and locating specific keywords within them. The application provides two main functionalities: a main page for uploading and searching keywords across multiple PDF files, and a locate specifics page for detailed keyword occurrences on individual pages of a PDF.
 
 ## Available Scripts
 
@@ -37,7 +37,43 @@ If you aren't satisfied with the build tool and configuration choices, you can `
 
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However, we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Main Page Functionality
+
+The main page allows users to upload PDF files and search for specific keywords within those files. The results show the occurrences of the keywords on each page of the PDFs.
+
+### `onDrop`
+
+Handles file drop and reads the PDF files. Extracts text content from each page and stores it in the state.
+
+### `handleSearch`
+
+Prompts the user for keywords and searches for those keywords in the uploaded PDF files. Counts the occurrences of each keyword on each page.
+
+### `handleDownload`
+
+Downloads the search results as an Excel file for further analysis or record-keeping.
+
+### `handleKeywordClick`
+
+Allows users to view the specific page of a PDF where a keyword is found.
+
+## Locate Specifics Page Functionality
+
+The locate specifics page allows users to upload a single PDF file and search for specific keywords. It displays the number of occurrences of each keyword on the current page being viewed.
+
+### `onDrop`
+
+Handles file drop and reads the PDF file. Extracts text content from each page and stores it in the state.
+
+### `renderAnnotations`
+
+Displays the annotations for the current page, showing how many times each keyword occurs on that page.
+
+### `nextPage` and `prevPage`
+
+Controls for navigating through the pages of the PDF.
 
 ## Learn More
 
