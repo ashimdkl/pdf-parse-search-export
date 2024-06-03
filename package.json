@@ -13,8 +13,10 @@
     "react-dropzone": "^14.2.3",
     "react-modal": "^3.16.1",
     "react-pdf": "^9.0.0",
+    "react-pro-sidebar": "^1.1.0",
     "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
+    "react-sidebar": "^3.0.2",
     "web-vitals": "^2.1.4",
     "xlsx": "^0.18.5",
     "xlsx-style": "^0.8.13"

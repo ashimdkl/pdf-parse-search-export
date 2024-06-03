@@ -1,0 +1,69 @@
+/* docs.css */
+
+/* Normalize CSS */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto; /* Ensure vertical scrolling */
+    height: auto; /* Ensure height is auto */
+}
+
+h2 {
+    color: #333333;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #666666;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul > li {
+    margin-bottom: 5px;
+}
+
+ul ul {
+    margin-left: 20px;
+}
+
+strong {
+    color: #333333;
+}
+
+.container {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    width: 90%; /* Adjusted to be responsive */
+    max-width: 1200px; /* Maximum width for large screens */
+    min-width: 300px; /* Minimum width for small screens */
+}
+
+ul > li > ul > li {
+    color: #666666;
+    font-size: 14px;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh; /* Ensure full height */
+}
+
+.flex-item {
+    width: 100%;
+}
