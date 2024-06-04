@@ -4,37 +4,122 @@
 @import 'react-pdf/dist/esm/Page/TextLayer.css';
 @import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 
-/* basic reset and box-sizing */
-* {
-  margin: 0;
-  padding: 0;
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Custom Styles */
+body, html {
+  font-family: Arial, sans-serif;
+  height: 100%;
   box-sizing: border-box;
 }
 
-/* set a nice font and some basic styles for the body */
-body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  line-height: 1.6;
-  background-color: #f4f4f4;
+.data-page {
+  text-align: center;
   padding: 20px;
+  box-sizing: border-box;
+  height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  flex-direction: column;
 }
 
-/* main container styling */
+.dropzone {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  margin: 20px auto;
+  width: 80%;
+  max-width: 600px;
+  cursor: pointer;
+}
+
+.dropzone p {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  width: 100%;
+}
+
+table {
+  margin: 20px auto;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 1000px;
+  table-layout: fixed;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 20px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #f0f0f0;
+}
+
+.keyword-container {
+  margin: 20px 0;
+  overflow-x: auto;
+}
+
+/* Additional styles to ensure proper scrolling */
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Changed from center to flex-start */
+  min-height: 100vh; /* Ensure the body takes up the full viewport height */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
 div {
   background: #fff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 800px; /* increased width to accommodate table */
+  max-width: 800px;
   text-align: center;
+  margin-top: 20px; /* Add some margin to the top */
 }
 
-/* dropzone styling */
 .dropzone {
   border: 2px dashed #ccc;
   padding: 20px;
@@ -48,7 +133,6 @@ div {
   background: #eaeaea;
 }
 
-/* header styling */
 h1 {
   margin-bottom: 20px;
   font-size: 24px;
@@ -62,7 +146,6 @@ h2 {
   color: #666;
 }
 
-/* input field styling */
 input[type="text"] {
   padding: 10px;
   width: calc(100% - 22px);
@@ -71,7 +154,6 @@ input[type="text"] {
   margin-bottom: 10px;
 }
 
-/* button styling */
 button {
   padding: 10px 20px;
   background: #007bff;
@@ -80,14 +162,13 @@ button {
   color: #fff;
   cursor: pointer;
   transition: background 0.3s;
-  margin-top: 20px; /* add margin-top for better spacing */
+  margin-top: 20px;
 }
 
 button:hover {
   background: #0056b3;
 }
 
-/* table styling */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -104,11 +185,11 @@ th {
   background-color: #f4f4f4;
 }
 
-/* highlighting style */
 mark {
   background-color: yellow;
   font-weight: bold;
 }
+
 .help-button {
   position: absolute;
   top: 10px;
@@ -138,4 +219,9 @@ mark {
   width: 50% !important;
   max-width: 600px !important;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+.pdf-container {
+  height: 80vh;
+  overflow-y: auto;
 }
