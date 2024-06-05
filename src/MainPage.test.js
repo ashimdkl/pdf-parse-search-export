@@ -75,4 +75,4 @@ describe('MainPage', () => {
 
     await waitFor(() => expect(XLSX.writeFile).toHaveBeenCalled());
   });
-});
+});    

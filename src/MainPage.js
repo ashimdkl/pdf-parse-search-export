@@ -97,11 +97,11 @@ function MainPage() {
         <p>drag and drop pdf files here, or click to select</p>
       </div>
       {loading ? ( // Show loading state
-        <div>Loading...</div>
+        <div>Loading and Generating Files.... </div>
       ) : (
         files.length > 0 && (
           <div>
-            <h2>Loading complete</h2>
+            <h2>Loading Complete! Please type the keyword below and click search to generate your sheets!</h2>
           </div>
         )
       )}
