@@ -166,6 +166,7 @@ function MainPage() {
         });
       });
     });
+    // we sort the results alphabetically by keyword so all the keywords occur bunched up together
     results.sort((a, b) => a.keyword.localeCompare(b.keyword));
     handleDownload(results);
   };
@@ -215,6 +216,7 @@ function MainPage() {
     // we match the sentence for the go 95 rules
     const go95Match = sentence.match(/GO 95,? Rules? ([\d.]+)/);
     if (go95Match) {
+      // if the match is found, we extract the rule number and definition
       const ruleNumber = go95Match[1];
       const goInfo = go95Definitions[ruleNumber] || '';
 
@@ -279,8 +281,11 @@ function MainPage() {
       'definition': result.goInfo || '',
       title: result.title
     })));
+    // we create a new workbook and append the worksheet
     const workbook = XLSX.utils.book_new();
+    // we append the worksheet to the workbook
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Results');
+    // we initiate the download of the workbook
     XLSX.writeFile(workbook, 'pdf_keyword_analyzer.xlsx');
   };
 
