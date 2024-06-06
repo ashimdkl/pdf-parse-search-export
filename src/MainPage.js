@@ -210,11 +210,15 @@ function MainPage() {
    * analyzes a sentence for go 95 rules and returns the results
    */
   const analyzeGO95 = (sentence, fileName, page, occurrence, totalOccurrences) => {
+    // we create an empty array to store the results
     const results = [];
+    // we match the sentence for the go 95 rules
     const go95Match = sentence.match(/GO 95,? Rules? ([\d.]+)/);
     if (go95Match) {
       const ruleNumber = go95Match[1];
       const goInfo = go95Definitions[ruleNumber] || '';
+
+      // we push the results to the results array
       results.push({
         keyword: 'GO 95',
         fileName,
@@ -261,7 +265,11 @@ function MainPage() {
    * generates an excel file from the results and initiates a download
    */
   const handleDownload = (results) => {
+    // we convert the results to a worksheet
     const worksheet = XLSX.utils.json_to_sheet(results.map(result => ({
+      /* we map the results to the worksheet columns.
+        keyword | file | page | occurrence | go ? | rule number | definition | title (expected output)
+      */
       keyword: result.keyword,
       file: result.fileName,
       page: result.page,
