@@ -296,16 +296,16 @@ function MainPage() {
       ) : (
         files.length > 0 && (
           <div>
-            <h2>Loading Complete! Please type the keyword below and click search to generate your sheets!</h2>
+            <h2>Loading Complete! Choose Analysis Appropriately.</h2>
           </div>
         )
       )}
       {Object.keys(texts).length > 0 && (
         <div>
-          <h2>enter keywords to search (comma separated):</h2>
+          <h2>Enter keywords to search (comma separated):</h2>
           <input type="text" value={keywords} onChange={e => setKeywords(e.target.value)} />
           <div>
-            <button onClick={handleSearch}>normal search</button>
+            <button onClick={handleSearch}>Normal Analysis</button>
             <button onClick={handleGeneralOrderAnalysis}>General Order Analysis</button>
           </div>
         </div>
