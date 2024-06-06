@@ -26,10 +26,14 @@ function MainPage() {
     fetch('/go95.txt')
       .then(response => response.text())
       .then(text => {
+        // we get the definitions using the parseGODefinitions function
         const definitions = parseGODefinitions(text);
+        // we set the definitions in the state
         setGO95Definitions(definitions);
       });
 
+      // we do the same for go128
+      // why does this shit work here but not in test file? review * * (works but idk why)
     fetch('/go128.txt')
       .then(response => response.text())
       .then(text => {
@@ -45,12 +49,16 @@ function MainPage() {
    * parses the go definitions from a text file
    */
   const parseGODefinitions = (text) => {
+    // we split the text into lines
     const lines = text.split('\n');
+    // we create an empty object to store the definitions
     const definitions = {};
 
+    // we iterate over the lines and extract the rule number and definition
     lines.forEach(line => {
       const ruleMatch = line.match(/(\d+\.\d+): (.+)/);
       if (ruleMatch) {
+        // if the ruleMatch[1] is the rule number and ruleMatch[2] is the definition and it matches, we store the definition in the object
         const ruleNumber = ruleMatch[1];
         const definition = ruleMatch[2];
         definitions[ruleNumber] = definition;
@@ -69,29 +77,45 @@ function MainPage() {
     setFiles(acceptedFiles);
     setLoading(true);
 
+    // we create an array to store and resolve promises for each file
+    // https://medium.com/@sharareshaddev/understanding-promises-in-javascript-and-their-use-in-react-a77564aae576 (using promises to fix w pending states and resolved rejected states)
     const promises = acceptedFiles.map((file) => {
+
+      // we create a new file reader
       return new Promise((resolve) => {
         const reader = new FileReader();
+        // we read the file as an array buffer, meaning we read the file as binary data
         reader.onload = async () => {
+          // we create a new Uint8Array from the reader result
           const typedArray = new Uint8Array(reader.result);
           const loadingTask = getDocument(typedArray);
+          // we wait for the pdf to load and extract the text
           const pdf = await loadingTask.promise;
+          // we create an array to store the text positions
           const textPositions = [];
 
+
+          // we iterate over the pages and extract the text content
           for (let i = 1; i <= pdf.numPages; i++) {
             const page = await pdf.getPage(i);
             const textContent = await page.getTextContent();
             const pageText = textContent.items.map(item => item.str).join(' ');
-
+            
+            // we store the page number, text, and text content in the textPositions array. 
             textPositions.push({ page: i, text: pageText, items: textContent.items });
           }
+
+          // we set the texts in the state
           setTexts((prevTexts) => ({ ...prevTexts, [file.name]: { textPositions } }));
           resolve();
         };
+
+        // we read the file as an array buffer
         reader.readAsArrayBuffer(file);
       });
     });
-
+    
+    // we wait for all promises to resolve and set the loading state to false
     Promise.all(promises).then(() => setLoading(false));
   };
 
@@ -102,7 +126,10 @@ function MainPage() {
    * splits the text into sentences and filters them by the keyword
    */
   const findSentences = (text, keyword) => {
+
+    // we split the text into sentences using regex
     const sentences = text.split(/(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s/);
+    // we filter the sentences by the keyword
     return sentences.filter(sentence => sentence.toLowerCase().includes(keyword.toLowerCase()));
   };
 
@@ -114,14 +141,20 @@ function MainPage() {
    * performs a normal keyword search across the uploaded pdfs
    */
   const handleSearch = () => {
+    // we split the keywords by comma and trim them
     const keywordsArray = keywords.split(',').map(kw => kw.trim());
     const results = [];
+    
+    // we iterate over the texts and search for the keywords
     Object.keys(texts).forEach((fileName) => {
+      // we destructure the textPositions from the texts object
       const { textPositions } = texts[fileName];
       keywordsArray.forEach(keyword => {
-        textPositions.forEach(({ page, text }, index) => {
+        // we iterate over the textPositions and find the sentences that contain the keyword
+        textPositions.forEach(({ page, text }) => {
           const sentences = findSentences(text, keyword);
           sentences.forEach((sentence, i) => {
+            // we push the results to the results array
             results.push({
               keyword,
               fileName: fileName.replace('.pdf', ''),
@@ -136,28 +169,37 @@ function MainPage() {
     results.sort((a, b) => a.keyword.localeCompare(b.keyword));
     handleDownload(results);
   };
-
+  
   /*
    * function handleGeneralOrderAnalysis
    * performs a general order analysis (both go 95 and go 128) across the uploaded pdfs
    */
   const handleGeneralOrderAnalysis = () => {
+    // we split the keywords by comma and trim them
     const keywordsArray = keywords.split(',').map(kw => kw.trim());
     const results = [];
     Object.keys(texts).forEach((fileName) => {
+      // we destructure the textPositions from the texts object
       const { textPositions } = texts[fileName];
       keywordsArray.forEach(keyword => {
+        // wait why the fuck am i iterating over, what is the index there for if i dont even use it???
+        // iterate over each text position in the file
         textPositions.forEach(({ page, text }, index) => {
           const sentences = findSentences(text, keyword);
           sentences.forEach((sentence, i) => {
+            // analyze the sentence for GO 95 rules
             const go95Results = analyzeGO95(sentence, fileName, page, i + 1, sentences.length);
+            // analyze the sentence for GO 128 rules
             const go128Results = analyzeGO128(sentence, fileName, page, i + 1, sentences.length);
+            // add the results to the results array
             results.push(...go95Results, ...go128Results);
           });
         });
       });
     });
+    // sort the results alphabetically by keyword
     results.sort((a, b) => a.keyword.localeCompare(b.keyword));
+    // initiate the download of the results
     handleDownload(results);
   };
 
