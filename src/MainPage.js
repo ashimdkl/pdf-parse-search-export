@@ -264,7 +264,7 @@ function MainPage() {
         <Link to="/">Home</Link> |{' '}
         <Link to="/locate">Locate Specifics</Link> |{' '}
         <Link to="/info">Info</Link> |{' '}
-        <Link to="/DataPage">Enhance Data</Link>
+        <Link to="/docs">Developer Docs</Link>
       </div>
     </div>
   );
