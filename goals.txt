@@ -1,0 +1,56 @@
+ok so i want to completely change this structure and this is how i want to do it:
+
+user uploads doc files (can be any length, up to 100s of pages long) (microsoft word)
+
+our goal: find the sequence # using the facility ID we get from searching in each page of the docx file, each page can have its own.
+
+example, page 1 somewhere might have:
+
+FPB0021                              PACIFICORP                              PAGE     1
+2024-04-23                  CORRECTION TRACKING REPORT                        9.30.24
+
+State=OR  District=132              Lati=N  42.16588500 Long=W 123.63832700
+
+>068038/00            11/028               PPLT
+ 01339008.0           221761               PPLD
+    JU=TELCO    1997-08-01 0095 FRONTIER (CITIZENS)(OR)(T)
+
+
+Note the : < 01339008.0 , 221761> and then we store that in a variable called facID = 01339008.0221761.
+store that as <page1, 01339008.0221761>.
+
+
+we go through and locally store somewhere what each page's ID is, example:
+
+page 1, facID
+page 2, facID
+page 3, facID
+page last, facID
+
+
+then use that facID value to find the sequence # from the data.xlsx which has a bunch of facID's and sequence #'s assosciated with it.
+
+ex: (Data.xlsx)
+Sequence	Facility ID
+1010	01339008.0221700
+1020	01339008.0221761  // for <01339008.0221761 like above, the sequence is 1020>
+1030	01339008.0221703
+1040	01339008.0221702
+1050	01339008.0221701
+
+then, for every page, we will output it into a folder which will change the names of the files and the format of the files.
+we will output like this.
+- output
+  - page1_sequence1020_01339008.0221761.pdf and page 1 will output like that
+  - page2_sequencexxxx_xxxxxxxx.xxxxxxx.pdf and page 2 will output like that
+
+and we will do that and output x amount of files in which x is the # of pages in the docx page.
+
+so pretty much, to fix some of the issues we were having, 
+store the page#, facID assosciated with that page of the docx and do that by parsing it.
+then we use that facID to find the sequence from the data.xlsx,
+
+Then output it into a folder with all of those seperate instances of each page each with its own unique name corresponding with the page#, seq id, fac id
+
+
+

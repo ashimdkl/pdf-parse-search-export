@@ -13,7 +13,7 @@ GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs
  * this is the main component of the application. it handles file uploads, parsing pdfs, keyword searches, and generating excel sheets.
  */
 function MainPage() {
-  // state variables
+  // state variables  
   const [files, setFiles] = useState([]); // stores the uploaded files
   const [texts, setTexts] = useState({}); // stores the extracted text from the pdfs
   const [keywords, setKeywords] = useState(''); // stores the keywords input by the user
@@ -260,7 +260,6 @@ function MainPage() {
     }
     return results;
   };
-
   /*
    * function handleDownload
    * params @ results: array - the results to download
@@ -289,6 +288,8 @@ function MainPage() {
     XLSX.writeFile(workbook, 'pdf_keyword_analyzer.xlsx');
   };
 
+
+  // render the main page
   return (
     <div className="data-page">
       <h1>powerFUL searching.</h1>
